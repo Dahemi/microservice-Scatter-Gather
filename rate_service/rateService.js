@@ -16,6 +16,6 @@ app.get("/rate", (req, res) => {
   res.json(response);
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Rate Service is running on port ${PORT}`);
 });

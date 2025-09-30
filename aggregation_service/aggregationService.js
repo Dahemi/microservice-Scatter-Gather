@@ -16,14 +16,15 @@ async function scatter(company = "ABC") {
     }, 2000);
 
     try {
+      console.log(`Fetching rate for company: ${company}`);
       const res = await fetch(
-        `http://rate_service:3000/rate?company=${company}`
+        `http://rateService:3000/rate?company=${company}`
       );
       const data = await res.json();
       done = true;
       resolve(data.rate || "no response");
     } catch (err) {
-      console.error("Rate service error:", err.message);
+      console.error("Rate service error:", err);
       resolve("no response");
     }
   });
@@ -41,7 +42,7 @@ async function scatter(company = "ABC") {
 
     try {
       const res = await fetch(
-        `http://allocation_service:4000/allocation?company=${company}`
+        `http://allocationService:4000/allocation?company=${company}`
       );
       const data = await res.json();
       done = true;
@@ -65,7 +66,7 @@ async function scatter(company = "ABC") {
 
     try {
       const res = await fetch(
-        `http://logistic_service:5000/logistic?company=${company}`
+        `http://logisticService:5000/logistic?company=${company}`
       );
       const data = await res.json();
       done = true;
@@ -106,6 +107,6 @@ app.get("/scatter-gather", async (req, res) => {
 
 // start server
 const PORT = 8080;
-app.listen(PORT, () => {
-  console.log(`Scatter-Gather service running on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`scatterGather Service is running on port ${PORT}`);
 });
